@@ -31,7 +31,8 @@ describe('API Routes', () => {
       it('should return the food with the specified id', done => {
         chai.request(server)
           .get('/api/v1/foods/1')
-          .end((err, response) => {
+          .end((error, response) => {
+            should.not.exist(error)
             response.should.have.status(200)
             response.should.be.json
             response.body.should.be.an('object')
@@ -45,6 +46,18 @@ describe('API Routes', () => {
           })
       })
     })
+
+    describe('DELETE /api/v1/foods/:id', () => {
+      it('should delete the food with the specified id', done => {
+        chai.request(server)
+          .delete('/api/v1/foods/1')
+          .end((error, response) => {
+            should.not.exist(error)
+            response.should.have.status(204)
+            done()
+          })
+      })
+    })
   })
 
   describe('Meal Endpoints', () => {
@@ -52,7 +65,8 @@ describe('API Routes', () => {
       it('should return all meals', done => {
         chai.request(server)
           .get('/api/v1/meals')
-          .end((err, response) => {
+          .end((error, response) => {
+            should.not.exist(error)
             response.should.have.status(200)
             response.should.be.json
             response.body.should.be.an('array')
@@ -61,6 +75,14 @@ describe('API Routes', () => {
             response.body[0].id.should.equal(1)
             response.body[0].should.have.property('name')
             response.body[0].name.should.equal('Breakfast')
+            response.body[0].should.have.property('foods')
+            response.body[0].foods.should.be.an('array')
+            response.body[0].foods[0].should.have.property('id')
+            response.body[0].foods[0].id.should.equal(1)
+            response.body[0].foods[0].should.have.property('name')
+            response.body[0].foods[0].name.should.equal('eggs')
+            response.body[0].foods[0].should.have.property('calories')
+            response.body[0].foods[0].calories.should.equal(100)
             done()
           })
       })

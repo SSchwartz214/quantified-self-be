@@ -27,6 +27,17 @@ app.get('/api/v1/foods/:id', (request, response) => {
     })
 })
 
+app.delete('/api/v1/foods/:id', (request, response) => {
+  database('foods').where('id', request.params.id).del()
+    .then(() => {
+      response.status(204).send(`Successfully deleted food with id ${request.params.id}`
+      )
+    })
+    .catch(error => {
+      response.status(404).json({ error })
+    })
+})
+
 app.get('/api/v1/meals', (request, response) => {
   database('meals').select()
     .then((meals) => {
