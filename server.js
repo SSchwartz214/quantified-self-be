@@ -48,6 +48,9 @@ app.patch('/api/v1/foods/:id', (request, response) => {
     .then((food) => {
       response.status(200).json(food)
     })
+    .catch((error) => {
+      response.status(400).json({ error })
+    })
 })
 
 app.get('/api/v1/meals', (request, response) => {
