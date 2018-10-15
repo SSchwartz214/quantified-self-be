@@ -58,6 +58,31 @@ describe('API Routes', () => {
           })
       })
     })
+
+    describe('PATCH /api/v1/foods/:id', () => {
+      it('should update the specified food when given valid paramaters', done => {
+        chai.request(server)
+          .patch('/api/v1/foods/1')
+          .send({
+            food: {
+              name: 'burger',
+              calories: 500
+            }
+          })
+          .end((error, response) => {
+            should.not.exist(error)
+            response.should.have.status(200)
+            response.body.should.be.an('object')
+            response.body.should.have.property('id')
+            response.body.id.should.equal(1)
+            response.body.should.have.property('name')
+            response.body.name.should.equal('burger')
+            response.body.should.have.property('calories')
+            response.body.calories.should.equal(500)
+            done()
+          })
+      })
+    })
   })
 
   describe('Meal Endpoints', () => {
