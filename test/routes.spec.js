@@ -33,8 +33,8 @@ describe('API Routes', () => {
           .get('/api/v1/foods/1')
           .end((error, response) => {
             should.not.exist(error)
-            response.should.have.status(200)
             response.should.be.json
+            response.should.have.status(200)
             response.body.should.be.an('object')
             response.body.should.have.property('id')
             response.body.id.should.equal(1)
@@ -67,8 +67,8 @@ describe('API Routes', () => {
           .get('/api/v1/meals')
           .end((error, response) => {
             should.not.exist(error)
-            response.should.have.status(200)
             response.should.be.json
+            response.should.have.status(200)
             response.body.should.be.an('array')
             response.body.length.should.equal(4)
             response.body[0].should.have.property('id')
@@ -78,11 +78,11 @@ describe('API Routes', () => {
             response.body[0].should.have.property('foods')
             response.body[0].foods.should.be.an('array')
             response.body[0].foods[0].should.have.property('id')
-            response.body[0].foods[0].id.should.equal(1)
+            response.body[0].foods[0].id.should.equal(9)
             response.body[0].foods[0].should.have.property('name')
-            response.body[0].foods[0].name.should.equal('eggs')
+            response.body[0].foods[0].name.should.equal('tomatoes')
             response.body[0].foods[0].should.have.property('calories')
-            response.body[0].foods[0].calories.should.equal(100)
+            response.body[0].foods[0].calories.should.equal(25)
             done()
           })
       })
