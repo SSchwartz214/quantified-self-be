@@ -87,5 +87,20 @@ describe('API Routes', () => {
           })
       })
     })
+
+    describe('POST /api/v1/meals/:meal_id/foods/:id', () => {
+      it('should add the specified food to the specified meal', done => {
+        chai.request(server)
+          .post('/api/v1/meals/1/foods/1')
+          .end((error, response) => {
+            should.not.exist(error)
+            response.should.be.json
+            response.should.have.status(201)
+            response.body.should.have.property('message')
+            response.body.message.should.equal('Successfully added eggs to Breakfast')
+            done()
+          })
+      })
+    })
   })
 })
