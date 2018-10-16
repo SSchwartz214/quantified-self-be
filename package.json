@@ -1,7 +1,6 @@
 {
   "name": "quantified-self-be",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,5 +17,14 @@
     "chai": "^4.2.0",
     "chai-http": "^4.2.0",
     "mocha": "^5.2.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SSchwartz214/quantified-self-be.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SSchwartz214/quantified-self-be/issues"
+  },
+  "homepage": "https://github.com/SSchwartz214/quantified-self-be#readme",
+  "description": ""
 }
