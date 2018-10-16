@@ -154,7 +154,20 @@ app.get('/api/v1/foods/:id', (request, response) => {
       .catch((error) => {
         response.status(404).json({ error })
       })
+  })
 
+  app.delete('/api/v1/meals/:meal_id/foods/:id', (request, response) => {
+    let mealId = request.params.meal_id
+    let foodId = request.params.id
+    database('meal_foods').where('meal_id', `${mealId}`)
+    .where('food_id', `${foodId}`).del()
+      .then(() => {
+        response.status(204).send(`Successfully deleted food with id ${mealId}`
+        )
+      })
+      .catch(error => {
+        response.status(404).json({ error })
+      })
   })
 
 module.exports = app;
