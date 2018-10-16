@@ -138,7 +138,7 @@ describe('API Routes', () => {
         })
     
         describe('PATCH /api/v1/foods/:id', () => {
-          it('should update the specified food when given valid paramaters', done => {
+          it('should update the specified food when given valid parameters', done => {
             chai.request(server)
               .patch('/api/v1/foods/1')
               .send({
@@ -239,5 +239,47 @@ describe('API Routes', () => {
               })
           })
         })
-      })
+
+        describe('GET /api/v1/meals/:meal_id/foods', () => {
+          it('should return all foods associated with a meal', done => {
+            chai.request(server)
+            .get('/api/v1/meals/1/foods')
+            .end((error,response) => {
+              response.should.be.json
+              response.should.be.have.status(200)
+              response.body.should.be.an('object')
+              response.body.should.have.property('id')
+              response.body.id.should.equal(1)
+              response.body.foods.length.should.equal(3)
+              response.body.foods[0].should.have.property('name')
+              response.body.foods[0].name.should.equal('chicken')
+              response.body.foods[0].should.have.property('calories')
+              response.body.foods[0].calories.should.equal(150)
+              done()
+              });
+          });
+
+          it('should return a 400 error if the meal is not found', done => {
+            chai.request(server)
+              .post('/api/v1/meals/5/foods/1')
+              .end((error, response) => {
+                response.should.be.json
+                response.should.have.status(400)
+                done()
+              })
+          })
+        });
+
+        describe('DELETE /api/v1/meals/:meal_id/foods/:id', () => {
+          it('should delete the food from a meal', done => {
+            chai.request(server)
+              .delete('/api/v1/meals/1/foods/2')
+              .end((error, response) => {
+                should.not.exist(error)
+                response.should.have.status(204)
+                done()
+              })
+          })    
+        })
+    })
 });
