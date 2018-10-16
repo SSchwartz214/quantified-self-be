@@ -137,4 +137,24 @@ app.get('/api/v1/foods/:id', (request, response) => {
       })
   })
 
+  app.get('/api/v1/meals/:meal_id/foods', (request, response) => {
+    let id = request.params.meal_id
+      database.raw(`
+      SELECT meals.id, meals.name, array_to_json
+      (array_agg(json_build_object('id', foods.id, 'name', foods.name, 'calories', foods.calories)))
+      AS foods
+      FROM meals
+      JOIN meal_foods ON meals.id = meal_foods.meal_id
+      JOIN foods ON meal_foods.food_id = foods.id
+      WHERE meals.id = ${id}
+      GROUP BY meals.id`)
+      .then((foods) => {
+        response.status(200).json(foods.rows[0])
+      })
+      .catch((error) => {
+        response.status(404).json({ error })
+      })
+
+  })
+
 module.exports = app;

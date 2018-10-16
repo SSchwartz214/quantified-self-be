@@ -239,5 +239,25 @@ describe('API Routes', () => {
               })
           })
         })
-      })
+
+        describe('GET /api/v1/meals/1/foods', () => {
+          it('should return all foods associated with a meal', done => {
+            chai.request(server)
+            .get('/api/v1/meals/1/foods')
+            .end((error,response) => {
+              response.should.be.json
+              response.should.be.have.status(200)
+              response.body.should.be.an('object')
+              response.body.should.have.property('id')
+              response.body.id.should.equal(1)
+              response.body.foods.length.should.equal(3)
+              response.body.foods[0].should.have.property('name')
+              response.body.foods[0].name.should.equal('chicken')
+              response.body.foods[0].should.have.property('calories')
+              response.body.foods[0].calories.should.equal(150)
+              done()
+              });
+          });
+        });
+    })
 });
