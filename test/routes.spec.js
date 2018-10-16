@@ -101,6 +101,20 @@ describe('API Routes', () => {
             done()
           })
       })
+
+      it('should return a 400 if given incomplete parameters', done => {
+        chai.request(server)
+          .patch('/api/v1/foods/104')
+          .send({
+            food: {
+            }
+          })
+          .end((error, response) => {
+            response.should.be.json
+            response.should.have.status(400)
+            done()
+          })
+      })
     })
   })
 
@@ -142,6 +156,26 @@ describe('API Routes', () => {
             response.should.have.status(201)
             response.body.should.have.property('message')
             response.body.message.should.equal('Successfully added eggs to Breakfast')
+            done()
+          })
+      })
+
+      it('should return a 400 error if the meal is not found', done => {
+        chai.request(server)
+          .post('/api/v1/meals/5/foods/1')
+          .end((error, response) => {
+            response.should.be.json
+            response.should.have.status(400)
+            done()
+          })
+      })
+
+      it('should return a 400 error if the food is not found', done => {
+        chai.request(server)
+          .post('/api/v1/meals/1/foods/12')
+          .end((error, response) => {
+            response.should.be.json
+            response.should.have.status(400)
             done()
           })
       })
