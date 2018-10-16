@@ -39,7 +39,7 @@ describe('API Routes', () => {
             throw error;
           });
       });
-    
+
       beforeEach((done) => {
         database.seed.run()
           .then(() => done())
@@ -47,7 +47,7 @@ describe('API Routes', () => {
             throw error;
           });
       });
-    
+
     describe('GET /api/v1/foods', () => {
         it('should return all of the foods', done =>{
             chai.request(server)
