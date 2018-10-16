@@ -136,6 +136,16 @@ describe('API Routes', () => {
             done()
           })
       })
+
+      it('should return a 404 of the food cannot be found', done => {
+        chai.request(server)
+          .get('/api/v1/foods/101')
+          .end((error, response) => {
+            response.should.be.json
+            response.should.have.status(404)
+            done()
+          })
+      })
     })
 
     describe('DELETE /api/v1/foods/:id', () => {
@@ -145,6 +155,54 @@ describe('API Routes', () => {
           .end((error, response) => {
             should.not.exist(error)
             response.should.have.status(204)
+            done()
+          })
+      })
+
+      it('should return a 404 if the food is not found', done => {
+        chai.request(server)
+          .delete('/api/v1/102')
+          .end((error, response) => {
+            response.should.have.status(404)
+            done()
+          })
+      })
+    })
+
+    describe('PATCH /api/v1/foods/:id', () => {
+      it('should update the specified food when given valid paramaters', done => {
+        chai.request(server)
+          .patch('/api/v1/foods/1')
+          .send({
+            food: {
+              name: 'burger',
+              calories: 500
+            }
+          })
+          .end((error, response) => {
+            should.not.exist(error)
+            response.should.have.status(200)
+            response.body.should.be.an('object')
+            response.body.should.have.property('id')
+            response.body.id.should.equal(1)
+            response.body.should.have.property('name')
+            response.body.name.should.equal('burger')
+            response.body.should.have.property('calories')
+            response.body.calories.should.equal(500)
+            done()
+          })
+      })
+
+      it('should return a 400 if given incomplete parameters', done => {
+        chai.request(server)
+          .patch('/api/v1/foods/104')
+          .send({
+            food: {
+            }
+          })
+          .end((error, response) => {
+            response.should.be.json
+            response.should.have.status(400)
             done()
           })
       })
@@ -189,6 +247,26 @@ describe('API Routes', () => {
             response.should.have.status(201)
             response.body.should.have.property('message')
             response.body.message.should.equal('Successfully added eggs to Breakfast')
+            done()
+          })
+      })
+
+      it('should return a 400 error if the meal is not found', done => {
+        chai.request(server)
+          .post('/api/v1/meals/5/foods/1')
+          .end((error, response) => {
+            response.should.be.json
+            response.should.have.status(400)
+            done()
+          })
+      })
+
+      it('should return a 400 error if the food is not found', done => {
+        chai.request(server)
+          .post('/api/v1/meals/1/foods/12')
+          .end((error, response) => {
+            response.should.be.json
+            response.should.have.status(400)
             done()
           })
       })

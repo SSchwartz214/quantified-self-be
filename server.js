@@ -93,6 +93,21 @@ app.delete('/api/v1/foods/:id', (request, response) => {
     })
 })
 
+app.patch('/api/v1/foods/:id', (request, response) => {
+  database('foods')
+    .where({ id: request.params.id })
+    .update({ name: request.body.food.name, calories: request.body.food.calories })
+    .then((id) => {
+      return database('foods').where('id', id).first()
+    })
+    .then((food) => {
+      response.status(200).json(food)
+    })
+    .catch((error) => {
+      response.status(400).json({ error })
+    })
+})
+
 app.get('/api/v1/meals', (request, response) => {
   database.raw(`
     SELECT meals.id, meals.name, array_to_json
