@@ -48,7 +48,7 @@ describe('API Routes', () => {
 
       it('should return a 404 of the food cannot be found', done => {
         chai.request(server)
-          .get('/api/v1/foods/124')
+          .get('/api/v1/foods/101')
           .end((error, response) => {
             response.should.be.json
             response.should.have.status(404)
@@ -64,6 +64,15 @@ describe('API Routes', () => {
           .end((error, response) => {
             should.not.exist(error)
             response.should.have.status(204)
+            done()
+          })
+      })
+
+      it('should return a 404 if the food is not found', done => {
+        chai.request(server)
+          .delete('/api/v1/102')
+          .end((error, response) => {
+            response.should.have.status(404)
             done()
           })
       })
