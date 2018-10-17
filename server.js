@@ -1,54 +1,53 @@
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
+const express = require('express')
+const app = express()
+const bodyParser = require('body-parser')
 
-const environment = process.env.NODE_ENV || 'development';
-const configuration = require('./knexfile')[environment];
-const database = require('knex')(configuration);
+const environment = process.env.NODE_ENV || 'development'
+const configuration = require('./knexfile')[environment]
+const database = require('knex')(configuration)
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.set('port', process.env.PORT || 3000);
-app.locals.title = 'Quantified Self';
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.set('port', process.env.PORT || 3000)
+app.locals.title = 'Quantified Self'
 
 app.get('/', (request, response) => {
-    response.send('Hello, Quantified Self!');
-});
+  response.send('Hello, Quantified Self!')
+})
 
 app.listen(app.get('port'), () => {
-    console.log(`${app.locals.title} is running on ${app.get('port')}.`);
-});
+  console.log(`${app.locals.title} is running on ${app.get('port')}.`)
+})
 
 app.get('/api/v1/foods', (request, response) => {
-    database('foods').select()
+  database('foods').select()
     .then((foods) => {
-        response.status(200).json(foods);
+      response.status(200).json(foods)
     })
     .catch((error) => {
-        response.status(500).json({ error});
-    });
-});
+      response.status(500).json({ error })
+    })
+})
 
 app.post('/api/v1/foods', (request, response) => {
-    const rawFood = request.body
+  const rawFood = request.body
 
-    for (let requiredParameter of ['name', 'calories']) {
-            if (!rawFood.food[requiredParameter]) {
-                    return response
-                        .status(422)
-                        .send({ error: `Expected format: {food: { name: <String>, calories: <Integer> }.  You're missing a "${requiredParameter}" property.`});
-                };
-            };
+  for (let requiredParameter of ['name', 'calories']) {
+    if (!rawFood.food[requiredParameter]) {
+      return response
+        .status(422)
+        .send({ error: `Expected format: {food: { name: <String>, calories: <Integer> }.  You're missing a "${requiredParameter}" property.` })
+    }
+  }
 
-        database('foods').insert(rawFood.food, 'id')
-            .then((food) => {
-        response.status(201).json({ id: food })
+  database('foods').insert(rawFood.food, 'id')
+    .then((food) => {
+      response.status(201).json({ id: food })
     })
     .catch(error => {
-        response.status(500).json({ error });
-    });
-
-});
+      response.status(500).json({ error })
+    })
+})
 
 app.get('/api/v1/foods/:id', (request, response) => {
   database('foods').where('id', request.params.id).select('id', 'name', 'calories')
@@ -139,7 +138,7 @@ app.post('/api/v1/meals/:meal_id/foods/:id', (request, response) => {
 
 app.get('/api/v1/meals/:meal_id/foods', (request, response) => {
   let id = request.params.meal_id
-    database.raw(`
+  database.raw(`
     SELECT meals.id, meals.name, array_to_json
     (array_agg(json_build_object('id', foods.id, 'name', foods.name, 'calories', foods.calories)))
     AS foods
@@ -160,14 +159,13 @@ app.delete('/api/v1/meals/:meal_id/foods/:id', (request, response) => {
   let mealId = request.params.meal_id
   let foodId = request.params.id
   database('meal_foods').where('meal_id', `${mealId}`)
-  .where('food_id', `${foodId}`).del()
+    .where('food_id', `${foodId}`).del()
     .then(() => {
-      response.status(204).send(`Successfully deleted food with id ${mealId}`
-      )
+      response.status(204).send({ message: `Successfully deleted food with id ${mealId}` })
     })
     .catch(error => {
       response.status(404).json({ error })
     })
 })
 
-module.exports = app;
+module.exports = app
