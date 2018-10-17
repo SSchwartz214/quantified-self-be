@@ -13,7 +13,7 @@ app.locals.title = 'Quantified Self'
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*")
-  res.header("Access-Control-Allow-Methods", "DELETE, PATCH")
+  res.header("Access-Control-Allow-Methods", "DELETE, PATCH, POST")
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
   next()
 })
@@ -123,16 +123,16 @@ app.post('/api/v1/meals/:meal_id/foods/:id', (request, response) => {
   let targetFood
 
   database('meals').where('id', mealId).first()
-    .then((meal) => {
+    .then(meal => {
       targetMeal = meal
       return database('foods').where('id', foodId).first()
     })
-    .then((food) => {
+    .then(food => {
       targetFood = food
     })
     .then(() => {
       if (targetMeal && targetFood) {
-        database('meal_foods').insert({ meal_id: mealId, food_id: foodId })
+        return database('meal_foods').insert([{ food_id: foodId, meal_id: mealId }], 'id')
       }
     })
     .then(() => {
