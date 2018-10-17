@@ -34,23 +34,23 @@ describe('Client Routes', () => {
 })
 
 describe('API Routes', () => {
+  before((done) => {
+    database.migrate.latest()
+      .then(() => done())
+      .catch(error => {
+        throw error
+      })
+  })
+
+  beforeEach((done) => {
+    database.seed.run()
+      .then(() => done())
+      .catch(error => {
+        throw error
+      })
+  })
+  
   describe('Food Endpoints', () => {
-    before((done) => {
-      database.migrate.latest()
-        .then(() => done())
-        .catch(error => {
-          throw error
-        })
-    })
-
-    beforeEach((done) => {
-      database.seed.run()
-        .then(() => done())
-        .catch(error => {
-          throw error
-        })
-    })
-
     describe('GET /api/v1/foods', () => {
       it('should return all of the foods', done => {
         chai.request(server)
