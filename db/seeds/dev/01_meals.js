@@ -8,9 +8,9 @@ exports.seed = function(knex, Promise) {
           { name: 'Dinner' },
           { name: 'Snack' }
         ], 'id')
-        .then(() => console.log('Meals seeded!'))
-        .catch(error => console.log(`Error seeding Meals data: ${error}`))
+          .then(() => console.log('Meals seeded!'))
+          .catch(error => console.log(`Error seeding Meals data: ${error}`))
       ])
     })
     .catch(error => console.log(`Error seeding Meals data: ${error}`));
-};
+}
