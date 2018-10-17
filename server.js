@@ -11,10 +11,10 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.set('port', process.env.PORT || 3000)
 app.locals.title = 'Quantified Self'
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*")
-  res.header("Access-Control-Allow-Methods", "DELETE, PATCH, POST")
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'DELETE, PATCH, POST')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
   next()
 })
 
@@ -165,7 +165,7 @@ app.get('/api/v1/meals/:meal_id/foods', (request, response) => {
 app.delete('/api/v1/meals/:meal_id/foods/:id', (request, response) => {
   let mealId = request.params.meal_id
   let foodId = request.params.id
-  database('meal_foods').where('meal_id', `${mealId}`).where('food_id', `${foodId}`)
+  database('meal_foods').where('meal_id', mealId).where('food_id', foodId)
     .then(result => {
       return database('meal_foods').where({ id: result[0].id }).del()
     })
