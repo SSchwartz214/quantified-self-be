@@ -43,47 +43,50 @@ Once the server is running, visit in your browser:
   mocha --exit
   ```
 
-## Record Endpoints:
+## API Endpoints:
 
 ### Foods
 
 * GET /api/v1/foods
 
+Returns all foods currently in the database
+example:
+
 ```
-Returns all foods currently in the database<br/>
-example:<br/>
-   {<br/>
-    "id": 1,<br/>
-    "name": "Banana",<br/>
-    "calories": 150<br/>
-    },<br/>
-    {<br/>
-    "id": 2,<br/>
-    "name": "Chicken",<br/>
-    "calories": 250<br/>
-    },<br/>
+   {
+    "id": 1,
+    "name": "Banana",
+    "calories": 150
+    },
+    {
+    "id": 2,
+    "name": "Chicken",
+    "calories": 250
+    },
 ```
 
-GET /api/v1/foods/:id
-```
-   * Returns the food object with the specific :id you’ve passed in<br/>
-   example:<br/>
-   {<br/>
-    "id": 1,<br/>
-    "name": "Banana",<br/>
-    "calories": 150<br/>
-    }<br/>
-```
+* GET /api/v1/foods/:id
+
+   * Returns the food object with the specific :id you’ve passed in
+   example:
+   
+   ```
+   {
+    "id": 1,
+    "name": "Banana",
+    "calories": 150
+    }
+  ```
 POST /api/v1/foods
 ```
-   * Allows creating a new food with the parameters<br/>
-   example parameters:<br/>
-   { "food": { "name": "Name of food here", "calories": "Calories here"} }<br/>
+   * Allows creating a new food with the parameters
+   example parameters:
+   { "food": { "name": "Name of food here", "calories": "Calories here"} }
 ```
 PATCH /api/v1/foods/:id
 ```
-  * Allows one to update an existing food with the parameters<br/>
-  example parameters:<br/>
+  * Allows one to update an existing food with the parameters
+  example parameters:
   { "food": { "name": "Mint", "calories": "14"} }
 ```
 DELETE /api/v1/foods/:id
@@ -94,77 +97,77 @@ DELETE /api/v1/foods/:id
 ```
 GET /api/v1/meals
 ```
-   * Returns all the meals in the database along with their associated foodsexample:<br>
-   example:<br/>
-   [<br/>
-    {<br/>
-        "id": 1,<br/>
-        "name": "Breakfast",<br/>
-        "foods": [<br/>
-            {<br/>
-                "id": 1,<br/>
-                "name": "Banana",<br/>
-                "calories": 150<br/>
-            },<br/>
-            {<br/>
-                "id": 6,<br/>
-                "name": "Yogurt",<br/>
-                "calories": 550<br/>
-            },<br/>
-            {<br/>
-                "id": 12,<br/>
-                "name": "Apple",<br/>
-                "calories": 220<br/>
-            }<br/>
-        ]<br/>
-    },<br/>
-    {<br/>
-        "id": 2,<br/>
-        "name": "Snack",<br/>
-        "foods": [<br/>
-            {<br/>
-                "id": 1,<br/>
-                "name": "Banana",<br/>
-                "calories": 150<br/>
-            },<br/>
-            {<br/>
-                "id": 9,<br/>
-                "name": "Gum",<br/>
-                "calories": 50<br/>
-            },<br/>
-            {<br/>
-                "id": 10,<br/>
-                "name": "Cheese",<br/>
-                "calories": 400<br/>
-            }<br/>
-        ]<br/>
-    },<br/>
+   * Returns all the meals in the database along with their associated foodsexample:
+   example:
+   [
+    {
+        "id": 1,
+        "name": "Breakfast",
+        "foods": [
+            {
+                "id": 1,
+                "name": "Banana",
+                "calories": 150
+            },
+            {
+                "id": 6,
+                "name": "Yogurt",
+                "calories": 550
+            },
+            {
+                "id": 12,
+                "name": "Apple",
+                "calories": 220
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Snack",
+        "foods": [
+            {
+                "id": 1,
+                "name": "Banana",
+                "calories": 150
+            },
+            {
+                "id": 9,
+                "name": "Gum",
+                "calories": 50
+            },
+            {
+                "id": 10,
+                "name": "Cheese",
+                "calories": 400
+            }
+        ]
+    },
 ```
 GET /api/v1/meals/:meal_id/foods
 ```
-   * Returns all the foods associated with the meal with an id specified by :meal_id<br/>
-   example:<br/>
-   {<br/>
-    "id": 1,<br/>
-    "name": "Breakfast",<br/>
-    "foods": [<br/>
-        {<br/>
-            "id": 1,<br/>
-            "name": "Banana",<br/>
-            "calories": 150<br/>
-        },<br/>
-        {<br/>
-            "id": 6,<br/>
-            "name": "Yogurt",<br/>
-            "calories": 550<br/>
-        },<br/>
-        {<br/>
-            "id": 12,<br/>
-            "name": "Apple",<br/>
-            "calories": 220<br/>
-        }<br/>
-    ]<br/>
-}<br/>
+   * Returns all the foods associated with the meal with an id specified by :meal_id
+   example:
+   {
+    "id": 1,
+    "name": "Breakfast",
+    "foods": [
+        {
+            "id": 1,
+            "name": "Banana",
+            "calories": 150
+        },
+        {
+            "id": 6,
+            "name": "Yogurt",
+            "calories": 550
+        },
+        {
+            "id": 12,
+            "name": "Apple",
+            "calories": 220
+        }
+    ]
+}
 ```
 POST /api/v1/meals/:meal_id/foods/:id
 ```
@@ -174,26 +177,7 @@ DELETE /api/v1/meals/:meal_id/foods/:id
 ```
    * Removes the food with :id from the meal with :meal_id
 
-#### Favorite Foods
-```
-GET /api/v1/favorite_foods
-```
-  * Retrieves data on the foods which were eaten most frequently.<br/>
-  example:<br/>
-  [<br/>
-  {<br/>
-    "timesEaten": 4,<br/>
-    "foods":<br/>
-      [<br/>
-        {<br/>
-          "name": "Banana",<br/>
-          "calories": 200,<br/>
-          "mealsWhenEaten": ["Breakfast", "Dinner"]<br/>
-        },<br/>
-  },
+## Contributors
 
-#### Questions or comments?
-
-Please contact me at:
-
+* Colin: https://github.com/colinwarmstrong
 * Seth: https://github.com/SSchwartz214
