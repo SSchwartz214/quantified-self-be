@@ -49,8 +49,7 @@ Once the server is running, visit in your browser:
 
 * GET /api/v1/foods
 
-Returns all foods currently in the database
-example:
+  * Returns all foods currently in the database
 
 ```
    {
@@ -66,9 +65,7 @@ example:
 ```
 
 * GET /api/v1/foods/:id
-
    * Returns the food object with the specific :id you’ve passed in
-   example:
    
    ```
    {
@@ -77,28 +74,30 @@ example:
     "calories": 150
     }
   ```
-POST /api/v1/foods
-```
+  
+* POST /api/v1/foods
    * Allows creating a new food with the parameters
+   
+   ```
    example parameters:
    { "food": { "name": "Name of food here", "calories": "Calories here"} }
-```
-PATCH /api/v1/foods/:id
-```
-  * Allows one to update an existing food with the parameters
-  example parameters:
+   ```
+   
+* PATCH /api/v1/foods/:id
+  * Allows one to update an existing food with the parameter
+    * example parameters:
+```    
   { "food": { "name": "Mint", "calories": "14"} }
 ```
-DELETE /api/v1/foods/:id
-```
+
+* DELETE /api/v1/foods/:id
   * Will delete the food with the id passed in
 
 #### Meals
-```
-GET /api/v1/meals
-```
+
+* GET /api/v1/meals
    * Returns all the meals in the database along with their associated foodsexample:
-   example:
+ ```
    [
     {
         "id": 1,
@@ -143,10 +142,11 @@ GET /api/v1/meals
         ]
     },
 ```
-GET /api/v1/meals/:meal_id/foods
-```
+
+* GET /api/v1/meals/:meal_id/foods
    * Returns all the foods associated with the meal with an id specified by :meal_id
-   example:
+   
+```   
    {
     "id": 1,
     "name": "Breakfast",
@@ -169,12 +169,12 @@ GET /api/v1/meals/:meal_id/foods
     ]
 }
 ```
-POST /api/v1/meals/:meal_id/foods/:id
-```
+
+* POST /api/v1/meals/:meal_id/foods/:id
    * Adds the food with :id to the meal with :meal_id
-```
-DELETE /api/v1/meals/:meal_id/foods/:id
-```
+
+
+* DELETE /api/v1/meals/:meal_id/foods/:id
    * Removes the food with :id from the meal with :meal_id
 
 ## Contributors
