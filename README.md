@@ -96,7 +96,7 @@ Once the server is running, visit in your browser:
 #### Meals
 
 * GET /api/v1/meals
-   * Returns all the meals in the database along with their associated foodsexample:
+   * Returns all the meals in the database along with their associated foods
  ```
    [
     {
