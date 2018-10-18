@@ -43,7 +43,7 @@ Once the server is running, visit in your browser:
   mocha --exit
   ```
 
-## API Endpoints:
+## API Endpoints
 
 ### Foods
 
