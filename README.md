@@ -1,6 +1,6 @@
-### Quantified Self Back-end
+# Quantified Self Back-end
 
-#### Description
+## Description
 
 Quantified Self is a web application that tracks calories in meals that the user eats.  A user can add individual foods to a master list and then add any combination of those foods to a meal to calculate the total amount of calories consumed.  The user can also generate recipes using the Yummly API.  This is the back-end API of the app.  To view the front-end please visit: https://github.com/SSchwartz214/quantified-self-fe
 
