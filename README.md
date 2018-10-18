@@ -93,7 +93,7 @@ Once the server is running, visit in your browser:
 * DELETE /api/v1/foods/:id
   * Will delete the food with the id passed in
 
-#### Meals
+### Meals
 
 * GET /api/v1/meals
    * Returns all the meals in the database along with their associated foods
