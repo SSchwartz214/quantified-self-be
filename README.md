@@ -35,7 +35,7 @@ npm start
 
 Once the server is running, visit in your browser:
 
-* `http://localhost:8080/` to run the application.
+* `http://localhost:3000/` to run the application.
 
 ## To run the test suite
   
@@ -43,14 +43,15 @@ Once the server is running, visit in your browser:
   mocha --exit
   ```
 
-### Record Endpoints:
+## Record Endpoints:
 
-#### Foods
+### Foods
+
+* GET /api/v1/foods
+
 ```
-GET /api/v1/foods
-```
-   * Returns all foods currently in the database<br/>
-   example:<br/>
+Returns all foods currently in the database<br/>
+example:<br/>
    {<br/>
     "id": 1,<br/>
     "name": "Banana",<br/>
@@ -62,6 +63,7 @@ GET /api/v1/foods
     "calories": 250<br/>
     },<br/>
 ```
+
 GET /api/v1/foods/:id
 ```
    * Returns the food object with the specific :id you’ve passed in<br/>
